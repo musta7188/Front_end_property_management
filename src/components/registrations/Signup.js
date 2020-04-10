@@ -6,8 +6,8 @@ export default class Signup extends Component {
   constructor(props){
     super(props);
     this.state = {
-      firstName:'',
-      lastName: '',
+      first_name:'',
+      last_name: '',
       email: '',
       password: '',
       password_confirmation: '',
@@ -24,27 +24,61 @@ handleChange = (event) => {
 
 handleSubmit = (event) =>{
 event.preventDefault()
+const {first_name, last_name, email, password, password_confirmation} = this.state
+
+let user = {
+  first_name: first_name,
+  last_name: last_name,
+  email: email,
+  password: password,
+  password_confirmation: password_confirmation
+}
+
+axios.post('http://localhost:3001/landlords',{user}, {withCredentials: true})
+.then(response => {
+  if (response.data.status === 'created'){
+    this.props.handleLogin(response.data)
+    this.redirect()
+  }else {
+    this.setState({
+      errors: response.data.errors
+    })
+  }
+})
+.catch(error => console.log('api errors:', error))
+
 };
 
+redirect = () =>{
+  return (
+    <div>
+      <ul>
+        {this.state.errors.map((error) => {
+          return <li key={error}>{error}</li>
+        })}
+      </ul>
+    </div>
+  )
+}
 
   render() {
-    const {firstName, lastName, email, password, password_confirmation} = this.state
+    const {first_name, last_name, email, password, password_confirmation} = this.state
     return (
       <div>
         <h1>Sign In</h1>
         <form onSubmit={this.handleSubmit}>
         <input
-        placeholder="firstName"
+        placeholder="first name"
         type="text"
-        name="firstName"
-        value={firstName}
+        name="first_name"
+        value={first_name}
         onChange={this.handleChange}
         />
         <input
-        placeholder="lastName"
+        placeholder="last name"
         type="text"
-        name="lastName"
-        value={lastName}
+        name="last_name"
+        value={last_name}
         onChange={this.handleChange}
         />
         <input

@@ -23,11 +23,48 @@ handleChange = (event) => {
 
 handleSubmit = (event) =>{
 event.preventDefault()
+const {first_name, last_name, email, password} = this.state
+
+let user = {
+  first_name: first_name,
+  last_name: last_name,
+  email: email,
+  password: password
+}
+
+axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
+.then(response => {
+  if (response.data.logged_in){
+    this.props.handleLogin(response.data)
+    this.redirect()
+  }else{
+    this.setState({
+      error: response.data.errors
+    })
+  }
+})
+.catch(error => console.log('api errors:', error))
 };
+
+redirect = () =>{
+  this.props.history.push('/')
+}
+
+handleErrors = () =>{
+  return(
+    <div>
+      <ul>
+        {this.state.errors.map(error => {
+          return <li key={error}>{error}</li>
+        })}
+      </ul>
+    </div>
+  )
+}
 
 
   render() {
-    const {first_name, last_name, email, password} = this.state
+    const {first_name, last_name, email, password, errors} = this.state
     return (
       <div>
         <h1>Sign Up</h1>
@@ -35,7 +72,7 @@ event.preventDefault()
         <input
         placeholder="first name"
         type="text"
-        name="first name"
+        name="first_name"
         value={first_name}
         onChange={this.handleChange}
         />
@@ -67,6 +104,9 @@ event.preventDefault()
           or <Link to='/signup'>sign up</Link>
         </div>
         </form>
+        <div>
+          {errors? this.handleErrors(): null}
+        </div>
       </div>
     );
   }
