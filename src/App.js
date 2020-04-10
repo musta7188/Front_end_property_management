@@ -13,6 +13,41 @@ constructor(props){
   };
 }
 
+componentDidMount(){
+  this.loginStatus()
+}
+
+loginStatus = () => {
+  axios.get('http://localhost:3001/logged_in', {withCredentials: true})
+  .then(response => {
+    if (response.data.logged_in){
+      this.handleLogin(response)
+    }else{
+      this.handleLogout()
+    }
+  })
+  .catch(error => console.log('api errors:', error))
+}
+
+
+handleLogin = (data) => {
+this.setState({
+  isLoggedIn: true,
+  landlord: data.landlord
+})
+}
+
+handleLogout = () => {
+  this.setState({
+    isLoggedIn: false,
+    landlord: {}
+  })
+}
+
+
+
+
+
   render() {
     return (
       <div>
