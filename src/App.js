@@ -59,7 +59,7 @@ render() {
           <Route 
             exact path='/' 
             render={props => (
-            <Home {...props} handleLogout={this.handleLogout} loggedInStatus={this.state.isLoggedIn}/>
+            <Home {...props} handleLogout={this.handleLogout} loggedInStatus={this.state.isLoggedIn} user={this.state.landlord}/>
             )}
           />
           <Route 

@@ -14,6 +14,11 @@ const Home = (props) => {
     .catch(error => console.log(error))
   }
 
+  const renderDashboard = () => {
+    return (
+      <h1>ahuahauhau</h1>
+    )
+  }
 
   return(
     <div>
@@ -21,8 +26,8 @@ const Home = (props) => {
       <br></br>
       <Link to='/signup'>Sign Up</Link>
       <br></br>
-      { props.loggedInStatus ? <Link to='/logout' onClick={handleClick} >Log Out</Link> : null
-    }
+      { props.loggedInStatus ? <Link to='/logout' onClick={handleClick} >Log Out</Link> : null}
+      {(Object.keys(props.user).length > 0 && props.user.constructor === Object) ? renderDashboard() : null}
     </div>
   );
 };
