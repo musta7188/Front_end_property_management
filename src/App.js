@@ -21,10 +21,10 @@ componentDidMount(){
 }
 
 loginStatus = () => {
-  axios.get('http://localhost:3001/logged_in')
+  axios.get('http://localhost:3001/logged_in', {withCredentials: true})
   .then(response => {
     if (response.data.logged_in){
-      this.handleLogin(response)
+      this.handleLogin(response.data)
     }else{
       this.handleLogout()
     }
@@ -34,7 +34,7 @@ loginStatus = () => {
 
 
 handleLogin = (data) => {
-  
+
 this.setState({
   isLoggedIn: true,
   landlord: data.landlord
