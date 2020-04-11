@@ -11,6 +11,7 @@ export default class App extends Component {
 constructor(props){
   super(props);
   this.state = {
+    landlordLogin: false,
     isLoggedIn: false,
     landlord: {}
   };
@@ -48,6 +49,10 @@ handleLogout = () => {
   })
 }
 
+setValueAccess = (value) => {
+  value == 'landlord' ? this.setState({landlordLogin:true}) : this.setState({landlordLogin:false})
+  console.log(value)
+}
 
 
 
@@ -59,7 +64,7 @@ render() {
           <Route 
             exact path='/' 
             render={props => (
-            <Home {...props} handleLogout={this.handleLogout} loggedInStatus={this.state.isLoggedIn}/>
+            <Home {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  loggedInStatus={this.state.isLoggedIn}/>
             )}
           />
           <Route 
