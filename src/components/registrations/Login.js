@@ -24,25 +24,27 @@ handleChange = (event) => {
 handleSubmit = (event) =>{
   event.preventDefault()
   const {first_name, last_name, email, password} = this.state
-  debugger
-  let landlord = {
+
+  const landlord = {
     first_name: first_name,
     last_name: last_name,
     email: email,
     password: password
   }
-  
-  axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
+   
+  axios.post('http://localhost:3001/login', {landlord})
   .then(response => {
     if (response.data.logged_in){
+   
       this.props.handleLogin(response.data)
       this.redirect()
     }else{
       this.setState({
-        error: response.data.errors
+        errors: response.data.errors
       })
     }
   })
+ 
   .catch(error => console.log('api errors:', error))
   };
 

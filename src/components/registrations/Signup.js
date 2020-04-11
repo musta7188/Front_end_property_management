@@ -34,14 +34,14 @@ let landlord = {
   password_confirmation: password_confirmation
 }
 
-axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true})
+axios.post('http://localhost:3001/landlords',{landlord})
 .then(response => {
-  if (response.data.status === 200){
+  if (response.data.status == 200){
     this.props.handleLogin(response.data)
     this.redirect()
   }else {
     this.setState({
-      errors: response.data.errors
+      errors: response.errors
     })
   }
 })

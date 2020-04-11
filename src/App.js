@@ -34,6 +34,7 @@ loginStatus = () => {
 
 
 handleLogin = (data) => {
+  debugger
 this.setState({
   isLoggedIn: true,
   landlord: data.landlord
