@@ -22,29 +22,30 @@ handleChange = (event) => {
 };
 
 handleSubmit = (event) =>{
-event.preventDefault()
-const {first_name, last_name, email, password} = this.state
-
-let landlord = {
-  first_name: first_name,
-  last_name: last_name,
-  email: email,
-  password: password
-}
-
-axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
-.then(response => {
-  if (response.data.logged_in){
-    this.props.handleLogin(response.data)
-    this.redirect()
-  }else{
-    this.setState({
-      error: response.data.errors
-    })
+  event.preventDefault()
+  const {first_name, last_name, email, password} = this.state
+  debugger
+  let landlord = {
+    first_name: first_name,
+    last_name: last_name,
+    email: email,
+    password: password
   }
-})
-.catch(error => console.log('api errors:', error))
-};
+  
+  axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
+  .then(response => {
+    if (response.data.logged_in){
+      this.props.handleLogin(response.data)
+      this.redirect()
+    }else{
+      this.setState({
+        error: response.data.errors
+      })
+    }
+  })
+  .catch(error => console.log('api errors:', error))
+  };
+
 
 redirect = () =>{
   this.props.history.push('/')
@@ -60,6 +61,10 @@ handleErrors = () =>{
       </ul>
     </div>
   )
+}
+
+componentWillMount(){
+  return this.props.loggedInStatus ? this.redirect() : null
 }
 
 

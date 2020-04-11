@@ -48,9 +48,6 @@ handleLogout = () => {
 }
 
 
-// componentWillMount(){
-//   return this.props.loggedInStatus ? this.redirect() : null
-// }
 
 
 render() {
