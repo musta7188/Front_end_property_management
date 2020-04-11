@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Home from './components/Home'
@@ -48,33 +48,37 @@ handleLogout = () => {
 }
 
 
-componentWillMount(){
-  return this.props.loggedInStatus ? this.redirect() : null
-}
+// componentWillMount(){
+//   return this.props.loggedInStatus ? this.redirect() : null
+// }
 
 
-  render() {
-    return (
-      <div>
-        <BrowserRouter>
+render() {
+  return (
+    <div>
+      <BrowserRouter>
         <Switch>
-          <Route exact path='/' render={props => (
+          <Route 
+            exact path='/' 
+            render={props => (
             <Home {...props} loggedInStatus={this.state.isLoggedIn}/>
-          )} 
+            )}
           />
-          <Route exact path='/login' render={props =>(
-            <Login {...props} handleLogin={this.handleLogin}
-            loggedInStatus={this.state.isLoggedIn} />
-          ) }
+          <Route 
+            exact path='/login' 
+            render={props => (
+            <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+            )}
           />
-          <Route exact path='/signup' render={props => (
-            <Signup {...props} handleLogin={this.handleLogin}
-            loggedInStatus={this.state.isLoggedIn}/>
-          ) } 
+          <Route 
+            exact path='/signup' 
+            render={props => (
+            <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+            )}
           />
         </Switch>
-        </BrowserRouter>
-      </div>
-    )
-  }
+      </BrowserRouter>
+    </div>
+  );
+}
 }

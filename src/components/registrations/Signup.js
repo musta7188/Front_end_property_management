@@ -26,7 +26,7 @@ handleSubmit = (event) =>{
 event.preventDefault()
 const {first_name, last_name, email, password, password_confirmation} = this.state
 
-let user = {
+let landlord = {
   first_name: first_name,
   last_name: last_name,
   email: email,
@@ -34,9 +34,9 @@ let user = {
   password_confirmation: password_confirmation
 }
 
-axios.post('http://localhost:3001/landlords',{user}, {withCredentials: true})
+axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true})
 .then(response => {
-  if (response.data.status === 'created'){
+  if (response.data.status === 200){
     this.props.handleLogin(response.data)
     this.redirect()
   }else {
@@ -49,7 +49,11 @@ axios.post('http://localhost:3001/landlords',{user}, {withCredentials: true})
 
 };
 
-redirect = () =>{
+redirect = () => {
+  this.props.history.push('/')
+}
+
+handleErrors= () =>{
   return (
     <div>
       <ul>
@@ -65,7 +69,7 @@ redirect = () =>{
     const {first_name, last_name, email, password, password_confirmation} = this.state
     return (
       <div>
-        <h1>Sign In</h1>
+        <h1>Sign Up</h1>
         <form onSubmit={this.handleSubmit}>
         <input
         placeholder="first name"
@@ -109,6 +113,11 @@ redirect = () =>{
           or <Link to='/login'>Log In</Link>
         </div>
         </form>
+        <div>
+          {
+            this.state.errors ? this.handleErrors() : null
+          }
+        </div>
       </div>
     );
   }

@@ -25,14 +25,14 @@ handleSubmit = (event) =>{
 event.preventDefault()
 const {first_name, last_name, email, password} = this.state
 
-let user = {
+let landlord = {
   first_name: first_name,
   last_name: last_name,
   email: email,
   password: password
 }
 
-axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
+axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
 .then(response => {
   if (response.data.logged_in){
     this.props.handleLogin(response.data)
@@ -67,7 +67,7 @@ handleErrors = () =>{
     const {first_name, last_name, email, password, errors} = this.state
     return (
       <div>
-        <h1>Sign Up</h1>
+        <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
         <input
         placeholder="first name"
@@ -101,7 +101,7 @@ handleErrors = () =>{
           Log In
         </button>
         <div>
-          or <Link to='/signup'>sign up</Link>
+          or <Link to='/signup'>Sign up</Link>
         </div>
         </form>
         <div>
