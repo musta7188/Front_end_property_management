@@ -50,6 +50,7 @@ handleSubmit = (event) =>{
 
 
 redirect = () =>{
+  ///redirect the user to another track
   this.props.history.push('/')
 }
 
