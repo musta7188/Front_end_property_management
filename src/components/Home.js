@@ -6,7 +6,7 @@ const Home = (props) => {
 
   const handleClick = () =>{
 
-    axios.delete('http://localhost:3001/logout', {withCredentials:true})
+    axios.delete('http://localhost:3001/logout')
     .then(response => {
       props.handleLogout()
       props.history.push('/')
