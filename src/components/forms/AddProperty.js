@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function AddProperty() {
+export default function AddProperty(props) {
     const [value, setValue] = useState({
         address: '',
         rooms: ''
@@ -29,7 +29,7 @@ export default function AddProperty() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('dasda');
+        props.addNewProperty(e, value);
         }
     
     const handleChange = (e) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +15,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Modal from '@material-ui/core/Modal';
 import AddProperty from '../forms/AddProperty'
 
+const POST_URL = 'http://localhost:3001/properties';
 const styles = (theme) => ({
   paper: {
     maxWidth: 936,
@@ -68,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
+  //load the properties in a state
+  const [properties, setProperties] = useState(props.user.properties);
+  
   //related to the modal
   const layout = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -82,16 +86,35 @@ function Content(props) {
     setOpen(false);
   };
 
+  const addNewProperty = (e, value) => {
+    value = {
+      ...value,
+      landlord_id : props.user.id
+    }
+        fetch(POST_URL, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(value)
+        })
+        .then(res => res.json())
+        .then(data => {
+          handleClose();
+          setProperties([...properties, data.property]);
+          
+        });
+  }
+
   const body = (//whats going to be inside the modal
     <div style={modalStyle} className={layout.paper}>
-      <AddProperty />
+      <AddProperty addNewProperty={addNewProperty}/>
     </div>
   );
 
   //end of related stuff to modal
 
   const renderProperties = () => {
-    const {properties} = props.user;
     if (properties.length === 0) {
       return (
         <Typography color="textSecondary" align="center">
@@ -108,7 +131,7 @@ function Content(props) {
 
 
   const { classes } = props;
-
+ 
   return (
     <Paper className={classes.paper}>
       <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
