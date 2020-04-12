@@ -6,7 +6,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import TestForm from './TestForm'
+import Login from './registrations/Login'
+import Signup from './registrations/Signup'
+
 const Home = (props) => {
 
   const handleClick = () =>{
@@ -51,7 +53,7 @@ const Home = (props) => {
         <FormControlLabel value="tenant" control={<Radio />} label="tenant" />
       </RadioGroup>
     </FormControl>
-    <TestForm/>
+  
      </div>
     }
     </div>
