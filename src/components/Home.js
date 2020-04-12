@@ -6,6 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Paperbase from './dashboard/Paperbase'
 
 const Home = (props) => {
 
@@ -21,10 +22,7 @@ const Home = (props) => {
 
   const renderDashboard = () => {
     return (
-      <div>
-        <Link to='/logout' onClick={handleClick} >Log Out</Link>
-        <h1>ahuahauhau</h1>
-      </div>
+      <Paperbase logout={() => handleClick()}/>
     )
   }
   
