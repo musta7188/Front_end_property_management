@@ -34,7 +34,7 @@ let landlord = {
   password_confirmation: password_confirmation
 }
 
-axios.post('http://localhost:3001/landlords',{landlord})
+axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true})
 .then(response => {
   if (response.data.status == 200){
     this.props.handleLogin(response.data)

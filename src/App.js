@@ -11,6 +11,7 @@ export default class App extends Component {
 constructor(props){
   super(props);
   this.state = {
+    landlordLogin: false,
     isLoggedIn: false,
     landlord: {}
   };
@@ -21,10 +22,10 @@ componentDidMount(){
 }
 
 loginStatus = () => {
-  axios.get('http://localhost:3001/logged_in')
+  axios.get('http://localhost:3001/logged_in', {withCredentials: true})
   .then(response => {
     if (response.data.logged_in){
-      this.handleLogin(response)
+      this.handleLogin(response.data)
     }else{
       this.handleLogout()
     }
@@ -34,7 +35,7 @@ loginStatus = () => {
 
 
 handleLogin = (data) => {
-  
+
 this.setState({
   isLoggedIn: true,
   landlord: data.landlord
@@ -48,6 +49,10 @@ handleLogout = () => {
   })
 }
 
+setValueAccess = (value) => {
+  value == 'landlord' ? this.setState({landlordLogin:true}) : this.setState({landlordLogin:false})
+  console.log(value)
+}
 
 
 
@@ -59,7 +64,7 @@ render() {
           <Route 
             exact path='/' 
             render={props => (
-            <Home {...props} handleLogout={this.handleLogout} loggedInStatus={this.state.isLoggedIn} user={this.state.landlord}/>
+            <Home {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  loggedInStatus={this.state.isLoggedIn}/>
             )}
           />
           <Route 

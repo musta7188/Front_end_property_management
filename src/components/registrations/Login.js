@@ -6,8 +6,6 @@ export default class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      first_name:'',
-      last_name: '',
       email: '',
       password: '',
       errors: ''
@@ -23,16 +21,14 @@ handleChange = (event) => {
 
 handleSubmit = (event) =>{
   event.preventDefault()
-  const {first_name, last_name, email, password} = this.state
+  const {email, password} = this.state
 
   const landlord = {
-    first_name: first_name,
-    last_name: last_name,
     email: email,
     password: password
   }
    
-  axios.post('http://localhost:3001/login', {landlord})
+  axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
   .then(response => {
     if (response.data.logged_in){
    
@@ -73,25 +69,11 @@ componentWillMount(){
 
 
   render() {
-    const {first_name, last_name, email, password, errors} = this.state
+    const { email, password, errors} = this.state
     return (
       <div>
         <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
-        <input
-        placeholder="first name"
-        type="text"
-        name="first_name"
-        value={first_name}
-        onChange={this.handleChange}
-        />
-        <input
-        placeholder="last name"
-        type="text"
-        name="last_name"
-        value={last_name}
-        onChange={this.handleChange}
-        />
         <input
           placeholder="email"
           type="text"
