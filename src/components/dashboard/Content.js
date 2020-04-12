@@ -9,9 +9,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import Modal from '@material-ui/core/Modal';
+import AddProperty from '../forms/AddProperty'
 
 const styles = (theme) => ({
   paper: {
@@ -36,7 +38,61 @@ const styles = (theme) => ({
   },
 });
 
+//related to the modal
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+//related to the modal
+function getModalStyle() {
+  const top = 35 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+//related to the modal
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 function Content(props) {
+
+  //related to the modal
+  const layout = useStyles();
+  // getModalStyle is not a pure function, we roll the style only on the first render
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+
+  const handleAddProperty = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (//whats going to be inside the modal
+    <div style={modalStyle} className={layout.paper}>
+      <AddProperty />
+    </div>
+  );
+
+  //end of related stuff to modal
+
+
+
   const { classes } = props;
 
   return (
@@ -58,8 +114,9 @@ function Content(props) {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" className={classes.addUser}>
-                Add user
+            {/* Button to open modal to add a new property */}
+              <Button variant="contained" color="primary" className={classes.addUser} onClick={handleAddProperty}>
+                Add Property
               </Button>
               <Tooltip title="Reload">
                 <IconButton>
@@ -75,6 +132,15 @@ function Content(props) {
           You don't have any properties yet
         </Typography>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
     </Paper>
   );
 }
