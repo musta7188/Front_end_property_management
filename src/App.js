@@ -11,7 +11,7 @@ export default class App extends Component {
 constructor(props){
   super(props);
   this.state = {
-    landlordLogin: false,
+    landlordLogin: true,
     isLoggedIn: false,
     landlord: {}
   };
@@ -64,7 +64,7 @@ render() {
           <Route 
             exact path='/' 
             render={props => (
-            <Home {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  
+            <Home setValueAccess={this.setValueAccess} {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  
             loggedInStatus={this.state.isLoggedIn}
             handleLogin={this.handleLogin} 
             />
@@ -79,7 +79,7 @@ render() {
           <Route 
             exact path='/signup' 
             render={props => (
-            <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+            <Signup {...props} setValueAccess={this.setValueAccess } handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
             )}
           />
         </Switch>

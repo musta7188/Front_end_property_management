@@ -1,13 +1,9 @@
 import React from 'react';
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
 import Login from './registrations/Login'
-import Signup from './registrations/Signup'
+
 
 const Home = (props) => {
 
@@ -29,42 +25,12 @@ const Home = (props) => {
       </div>
     )
   }
-  
-  const [value, setValue] = React.useState( 'landlord');
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    props.setValueAccess(event.target.value)
-   
-  };
 
-  
   return(
     <div>
-      { props.loggedInStatus ?
-      <div>
-      {renderDashboard()}
-      </div>
-      
-       :  
-
-     <div> 
-       
-      <Login loggedInStatus={props.loggedInStatus} handleLogin={props.handleLogin} />
-       
-  
-     <br></br>
-     <FormControl component="fieldset">
-      <FormLabel component="legend">Access as:</FormLabel>
-      <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-        <FormControlLabel value="landlord" control={<Radio />} label="landlord" />
-        <FormControlLabel value="tenant" control={<Radio />} label="tenant" />
-      </RadioGroup>
-    </FormControl>
-     
-     
-     
-     </div>
+      { props.loggedInStatus ? renderDashboard() : 
+      <Login setValueAccess={props.setValueAccess} loggedInStatus={props.loggedInStatus} handleLogin={props.handleLogin} />
     }
     </div>
   );

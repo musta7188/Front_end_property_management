@@ -70,7 +70,7 @@ componentWillMount() {
 }
 
   render() {
-    const {first_name, last_name, email, password, password_confirmation, errors} = this.state
+    const {first_name, last_name, email, password, password_confirmation, errors } = this.state
     return (
       <div>
         <div>
@@ -78,7 +78,7 @@ componentWillMount() {
             errors ? this.handleErrors() : null
           }
         </div>
-        <SignUpSide
+        <SignUpSide setValueAccess={this.props.setValueAccess}
         handleSubmit={this.handleSubmit} 
         handleChange={this.handleChange} email={email} 
         password={password} first_name={first_name} last_name={last_name}

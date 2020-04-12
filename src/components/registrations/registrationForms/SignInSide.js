@@ -12,6 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom'
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 function Copyright() {
   return (
@@ -57,8 +62,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide({email, password, handleChange, handleSubmit}) {
+export default function SignInSide({email, password, handleChange, handleSubmit, setValueAccess}) {
   const classes = useStyles();
+
+  const [value, setValue] = React.useState( 'landlord');
+
+  const handleClick = (event) => {
+    setValue(event.target.value);
+    setValueAccess(event.target.value)
+   
+  };
 
   return (
     
@@ -100,10 +113,13 @@ export default function SignInSide({email, password, handleChange, handleSubmit}
               value={password}
               onChange={handleChange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <FormControl component="fieldset">
+      <FormLabel component="legend">Sign In as:</FormLabel>
+      <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleClick}>
+        <FormControlLabel value="landlord" control={<Radio />} label="landlord" />
+        <FormControlLabel value="tenant" control={<Radio />} label="tenant" />
+      </RadioGroup>
+    </FormControl>
             <Button
               type="submit"
               fullWidth

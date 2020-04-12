@@ -74,7 +74,7 @@ componentWillMount(){
           {errors? this.handleErrors(): null}
         </div>
 
-        <SignInSide handleSubmit={this.handleSubmit} 
+        <SignInSide setValueAccess={this.props.setValueAccess } handleSubmit={this.handleSubmit} 
         handleChange={this.handleChange} email={email} 
         password={password} errors={errors}
         
