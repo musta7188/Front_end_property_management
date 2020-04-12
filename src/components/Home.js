@@ -6,6 +6,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Login from './registrations/Login'
+import Signup from './registrations/Signup'
 
 const Home = (props) => {
 
@@ -40,11 +42,17 @@ const Home = (props) => {
   return(
     <div>
       { props.loggedInStatus ?
-      renderDashboard() :  
-     <div> <Link to='/login'>Log In</Link> 
-     <br></br> 
-     <Link to='/signup'>Sign Up</Link>
-     <br></br>  
+      <div>
+      {renderDashboard()}
+      </div>
+      
+       :  
+
+     <div> 
+       
+      <Login loggedInStatus={props.loggedInStatus} handleLogin={props.handleLogin} />
+       
+  
      <br></br>
      <FormControl component="fieldset">
       <FormLabel component="legend">Access as:</FormLabel>

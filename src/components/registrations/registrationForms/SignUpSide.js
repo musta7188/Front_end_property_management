@@ -155,7 +155,7 @@ export default function SignUpSide({password_confirmation, first_name, last_name
                 </Link>
               </Grid>
               <Grid item>
-                <Link to='/login' variant="body2">
+                <Link to='/' variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
