@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
 
+import SignUpSide from './registrationForms/SignUpSide'
 export default class Signup extends Component {
   constructor(props){
     super(props);
@@ -70,58 +70,21 @@ componentWillMount() {
 }
 
   render() {
-    const {first_name, last_name, email, password, password_confirmation} = this.state
+    const {first_name, last_name, email, password, password_confirmation, errors} = this.state
     return (
       <div>
-        <h1>Sign Up</h1>
-        <form onSubmit={this.handleSubmit}>
-        <input
-        placeholder="first name"
-        type="text"
-        name="first_name"
-        value={first_name}
-        onChange={this.handleChange}
-        />
-        <input
-        placeholder="last name"
-        type="text"
-        name="last_name"
-        value={last_name}
-        onChange={this.handleChange}
-        />
-        <input
-          placeholder="email"
-          type="text"
-          name="email"
-          value={email}
-          onChange={this.handleChange}
-        />
-        <input
-               placeholder="password"
-               type="password"
-               name="password"
-               value={password}
-               onChange={this.handleChange}
-        />
-        <input
-               placeholder="password confirmation"
-               type="password"
-               name="password_confirmation"
-               value={password_confirmation}
-               onChange={this.handleChange}
-        />
-        <button placeholder="submit" type="submit">
-          Sign Up
-        </button>
-        <div>
-          or <Link to='/login'>Log In</Link>
-        </div>
-        </form>
         <div>
           {
-            this.state.errors ? this.handleErrors() : null
+            errors ? this.handleErrors() : null
           }
         </div>
+        <SignUpSide
+        handleSubmit={this.handleSubmit} 
+        handleChange={this.handleChange} email={email} 
+        password={password} first_name={first_name} last_name={last_name}
+        password_confirmation={password_confirmation}
+         errors={errors}
+        />
       </div>
     );
   }
