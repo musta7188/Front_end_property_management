@@ -22,7 +22,7 @@ const Home = (props) => {
 
   const renderDashboard = () => {
     return (
-      <Paperbase logout={() => handleClick()}/>
+      <Paperbase logout={() => handleClick()} user={props.user}/>
     )
   }
   

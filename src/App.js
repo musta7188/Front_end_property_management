@@ -35,7 +35,6 @@ loginStatus = () => {
 
 
 handleLogin = (data) => {
-
 this.setState({
   isLoggedIn: true,
   landlord: data.landlord
@@ -64,7 +63,7 @@ render() {
           <Route 
             exact path='/' 
             render={props => (
-            <Home {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  loggedInStatus={this.state.isLoggedIn}/>
+            <Home {...props} handleLogout={this.handleLogout} setValueAccess={this.setValueAccess}  loggedInStatus={this.state.isLoggedIn} user={this.state.landlord}/>
             )}
           />
           <Route 

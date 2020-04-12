@@ -189,7 +189,7 @@ function Paperbase(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} logout={props.logout}/>
           <main className={classes.main}>
-            <Content />
+            <Content user={props.user}/>
           </main>
           <footer className={classes.footer}>
             <Copyright />

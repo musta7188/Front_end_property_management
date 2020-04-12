@@ -68,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
-
   //related to the modal
   const layout = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
@@ -91,6 +90,21 @@ function Content(props) {
 
   //end of related stuff to modal
 
+  const renderProperties = () => {
+    const {properties} = props.user;
+    if (properties.length === 0) {
+      return (
+        <Typography color="textSecondary" align="center">
+            You don't have any properties yet
+        </Typography>
+      )
+    }
+    else{
+      return properties.map(property => (
+        <h2>{property.address}</h2>
+      ))
+    }
+  }
 
 
   const { classes } = props;
@@ -128,9 +142,7 @@ function Content(props) {
         </Toolbar>
       </AppBar>
       <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-          You don't have any properties yet
-        </Typography>
+        {renderProperties()}
       </div>
 
       <Modal
