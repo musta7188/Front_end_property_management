@@ -18,7 +18,7 @@ const Home = (props) => {
 
   const renderDashboard = () => {
     return (
-      <Paperbase logout={() => handleClick()} user={props.user}/>
+      <Paperbase logout={() => handleClick()} user={props.user} properties={props.properties}/>
     )
   }
 

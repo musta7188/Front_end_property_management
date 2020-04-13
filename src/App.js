@@ -13,7 +13,11 @@ constructor(props){
   this.state = {
     landlordLogin: true,
     isLoggedIn: false,
-    landlord: {}
+    landlord: {},
+    issues:{},
+    tenants:{},
+    todos:{},
+    properties:{}
   };
 }
 
@@ -35,16 +39,25 @@ loginStatus = () => {
 
 
 handleLogin = (data) => {
+  const {landlord, issues, tenants, todos, properties} = data
 this.setState({
   isLoggedIn: true,
-  landlord: data.landlord
+   landlord:landlord,
+    issues:issues,
+    tenants: tenants,
+    todos: todos,
+    properties: properties
 })
 }
 
 handleLogout = () => {
   this.setState({
     isLoggedIn: false,
-    landlord: {}
+    landlord: {},
+    issues:{},
+    tenants:{},
+    todos:{},
+    properties:{}
   })
 }
 
@@ -65,6 +78,8 @@ render() {
             render={props => (
             <Home 
               user={this.state.landlord}
+              properties={this.state.properties}
+            
               setValueAccess={this.setValueAccess} 
               {...props} 
               handleLogout={this.handleLogout} 
