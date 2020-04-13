@@ -11,14 +11,17 @@ const Home = (props) => {
     axios.delete('http://localhost:3001/logout', {withCredentials: true})
     .then(response => {
       props.handleLogout()
+      ///delete the props 
       props.history.push('/')
+      //delete the props 
     })
     .catch(error => console.log(error))
   }
 
   const renderDashboard = () => {
     return (
-      <Paperbase logout={() => handleClick()} user={props.user}/>
+      <Paperbase logout={() => handleClick()} user={props.user} properties={props.properties}/>
+      //paas landlord as state nad properties 
     )
   }
 

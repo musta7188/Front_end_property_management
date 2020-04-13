@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Content(props) {
   //load the properties in a state
-  const [properties, setProperties] = useState(props.user.properties ? props.user.properties : []);
+  const [properties, setProperties] = useState(props.properties ? props.properties : []);
   
   //related to the modal
   const layout = useStyles();
