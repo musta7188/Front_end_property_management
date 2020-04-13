@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Content(props) {
   //load the properties in a state
-  const [properties, setProperties] = useState(props.user.properties);
+  const [properties, setProperties] = useState(props.user.properties ? props.user.properties : []);
   
   //related to the modal
   const layout = useStyles();
@@ -115,6 +115,7 @@ function Content(props) {
   //end of related stuff to modal
 
   const renderProperties = () => {
+  
     if (properties.length === 0) {
       return (
         <Typography color="textSecondary" align="center">
