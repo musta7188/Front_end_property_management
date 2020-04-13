@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
-
+import SignInSide from './registrationForms/SignInSide'
 export default class Login extends Component {
   constructor(props){
     super(props);
@@ -39,7 +38,6 @@ handleSubmit = (event) =>{
         errors: response.data.errors
       })
     }
-    
   })
  
   .catch(error => console.log('api errors:', error))
@@ -72,32 +70,15 @@ componentWillMount(){
     const { email, password, errors} = this.state
     return (
       <div>
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
-        <input
-          placeholder="email"
-          type="text"
-          name="email"
-          value={email}
-          onChange={this.handleChange}
-        />
-        <input
-               placeholder="password"
-               type="password"
-               name="password"
-               value={password}
-               onChange={this.handleChange}
-        />
-        <button placeholder="submit" type="submit">
-          Log In
-        </button>
-        <div>
-          or <Link to='/signup'>Sign up</Link>
-        </div>
-        </form>
         <div>
           {errors? this.handleErrors(): null}
         </div>
+
+        <SignInSide setValueAccess={this.props.setValueAccess } handleSubmit={this.handleSubmit} 
+        handleChange={this.handleChange} email={email} 
+        password={password} errors={errors}
+        
+        />
       </div>
     );
   }
