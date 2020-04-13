@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Home from './components/Home'
+
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
+import Paperbase from './components/dashboard/Paperbase'
 import './App.css';
-
 
 export default class App extends Component {
 constructor(props){
@@ -67,42 +67,50 @@ setValueAccess = (value) => {
 }
 
 
+ handleClick = () =>{
+
+  axios.delete('http://localhost:3001/logout', {withCredentials: true})
+  .then(response => {
+    this.handleLogout()
+    ///delete the props 
+  this.history.push('/')
+    //delete the props 
+  })
+  .catch(error => console.log(error))
+}
+
+renderDashboard = () => {
+  return (
+    <Paperbase logout={() => this.handleClick()} user={this.state.landlord} properties={this.state.properties}/>
+    //paas landlord as state nad properties 
+  )
+}
+
 
 render() {
   return (
     <div>
-      <BrowserRouter>
+        { 
+        this.state.isLoggedIn? this.renderDashboard() : 
+     
+     <BrowserRouter>
         <Switch>
-          <Route 
-            exact path='/' 
-            render={props => (
-            <Home 
-              user={this.state.landlord}
-              properties={this.state.properties}
-            
-              setValueAccess={this.setValueAccess} 
-              {...props} 
-              handleLogout={this.handleLogout} 
-              setValueAccess={this.setValueAccess}
-              loggedInStatus={this.state.isLoggedIn}
-              handleLogin={this.handleLogin} 
-            />
-            )}
-          />
-          {/* <Route 
-            exact path='/login' 
-            render={props => (
-            <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-            )}
-          /> */}
-          <Route 
-            exact path='/signup' 
-            render={props => (
-            <Signup {...props} setValueAccess={this.setValueAccess } handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-            )}
-          />
-        </Switch>
+       <Route 
+        exact path='/' 
+          render={props => (
+          <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
+        )}
+           />
+        <Route 
+        exact path='/signup' 
+        render={props => (
+        <Signup {...props} setValueAccess={this.setValueAccess } handleLogin={this.handleLogin} 
+        loggedInStatus={this.state.isLoggedIn}/>
+        )}
+      />
+       </Switch>
       </BrowserRouter>
+        }
     </div>
   );
 }
