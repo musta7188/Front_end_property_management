@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -15,31 +15,7 @@ import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
 import PublicIcon from '@material-ui/icons/Public';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
-import TimerIcon from '@material-ui/icons/Timer';
-import SettingsIcon from '@material-ui/icons/Settings';
-import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
-
-const categories = [
-  {
-    id: 'Develop',
-    children: [
-      { id: 'Authentication', icon: <PeopleIcon />, active: true },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      { id: 'ML Kit', icon: <SettingsInputComponentIcon /> },
-    ],
-  },
-  {
-    id: 'Quality',
-    children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
-    ],
-  },
-];
+import HomeWorkRoundedIcon from '@material-ui/icons/HomeWorkRounded';
 
 const styles = (theme) => ({
   categoryHeader: {
@@ -84,12 +60,25 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
+  const [active, setActive] = useState('My Properties');
+
+  const categories = [
+    {
+      id: 'Main Menu',
+      children: [
+        { id: 'My Properties', icon: <HomeWorkRoundedIcon />, active: active === 'My Properties' ? true : false},
+        { id: 'Tenants', icon: <DnsRoundedIcon />, active: active === 'Tenants' ? true : false},
+        { id: 'Issues', icon: <PermMediaOutlinedIcon />, active: active === 'Issues' ? true : false},
+        { id: 'Todos', icon: <PermMediaOutlinedIcon />, active: active === 'Todos' ? true : false}
+      ],
+    }
+  ];
 
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Paperbase
+          Property Management
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -100,7 +89,7 @@ function Navigator(props) {
               primary: classes.itemPrimary,
             }}
           >
-            Project Overview
+            {props.user}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
@@ -119,6 +108,7 @@ function Navigator(props) {
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
+                onClick={() => !active ? setActive(childId) : null}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText

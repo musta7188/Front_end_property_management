@@ -183,7 +183,7 @@ function Paperbase(props) {
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+            <Navigator PaperProps={{ style: { width: drawerWidth } }} user={props.user.first_name}/>
           </Hidden>
         </nav>
         <div className={classes.app}>
