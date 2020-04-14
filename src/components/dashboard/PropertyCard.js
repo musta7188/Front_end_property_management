@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
 
-export default function PropertyCard({property, newClasses, handleDeleteProperty}) {
+export default function PropertyCard({property, newClasses, handleDeleteProperty, handlePropertyClick}) {
     console.log(property);
     const classes = useStyles();
     return (
@@ -65,7 +65,7 @@ export default function PropertyCard({property, newClasses, handleDeleteProperty
                     title={property.address}
                     subheader="September 14, 2016"
                 />
-                <CardActionArea>
+                <CardActionArea onClick={() => handlePropertyClick(property.id)}>
                 <CardMedia
                     className={classes.media}
                     image="https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale"
@@ -73,8 +73,7 @@ export default function PropertyCard({property, newClasses, handleDeleteProperty
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your
-                    guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                    house description
                     </Typography>
                 </CardContent>
                 </CardActionArea>
@@ -84,49 +83,3 @@ export default function PropertyCard({property, newClasses, handleDeleteProperty
         
       )
 }
-
-
-{/* <Grid item xs={12} sm={6}>
-          <Paper className={classes.propertyCard}>{property.address}</Paper>
-        </Grid> */}
-
-
-
-
-
-// export default function RecipeReviewCard() {
-  
-
-
-//   return (
-//     <Card className={classes.root}>
-//       <CardHeader
-//         avatar={
-//           <Avatar aria-label="recipe" className={classes.avatar}>
-//             R
-//           </Avatar>
-//         }
-//         action={
-//           <Tooltip title="Delete">
-//             <IconButton>
-//               <DeleteIcon aria-label="delete"/>
-//             </IconButton>
-//           </Tooltip>
-//         }
-//         title="Shrimp and Chorizo Paella"
-//         subheader="September 14, 2016"
-//       />
-//       <CardMedia
-//         className={classes.media}
-//         image="https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale"
-//         title="NAME OF THE HOUSE HERE"
-//       />
-//       <CardContent>
-//         <Typography variant="body2" color="textSecondary" component="p">
-//           This impressive paella is a perfect party dish and a fun meal to cook together with your
-//           guests. Add 1 cup of frozen peas along with the mussels, if you like.
-//         </Typography>
-//       </CardContent>
-//     </Card>
-//   );
-// }

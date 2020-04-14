@@ -14,6 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Modal from '@material-ui/core/Modal';
 import AddProperty from '../forms/AddProperty'
+import PropertyDetails from './PropertyDetails'
 
 import PropertyCard from './PropertyCard'
 
@@ -80,6 +81,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content(props) {
+  //check to see if we should show the details of a property
+  const [details, setDetails] = useState(false);
+
   //load the properties in a state
   const [properties, setProperties] = useState(props.properties ? props.properties : []);
   
@@ -97,9 +101,17 @@ function Content(props) {
     setOpen(false);
   };
 
+  //function called when the user click in the trash bin
   const handleDeleteProperty = (id) => {
-    setProperties(properties.filter(p => p.id !== id));
-
+    
+    fetch(`${POST_URL}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then((res) => setProperties(properties.filter(p => p.id !== id)));
   }
 
   //function called when add a new property 
@@ -141,29 +153,24 @@ function Content(props) {
         </Typography>
       )
     }
+    //render individual property cards
     else{
       return (
         <div className={classes.propertyGrid}>
           <Grid container spacing={1}>
-            {properties.map(property => <PropertyCard property={property} classes={classes} handleDeleteProperty={handleDeleteProperty}/> )}
+            {properties.map(property => <PropertyCard property={property} classes={classes} handleDeleteProperty={handleDeleteProperty} handlePropertyClick={(id) => setDetails(id)}/> )}
           </Grid>
         </div>
       )
     }
   }
 
-  const renderCardProperty = (property) => {
-    return (
-      <Grid item xs={12} sm={6}>
-        <Paper className={classes.propertyCard}>{property.address}</Paper>
-      </Grid>
-    )
-  }
-
   const { classes } = props;
- 
-  return (
-    <Paper className={classes.paper}>
+
+  //function => render all properties
+  const renderNoDetails = () => {
+    return (
+      <Paper className={classes.paper}>
       <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
@@ -173,7 +180,7 @@ function Content(props) {
             <Grid item xs>
               <TextField
                 fullWidth
-                placeholder="Search by email address, phone number, or user UID"
+                placeholder="Search by address"
                 InputProps={{
                   disableUnderline: true,
                   className: classes.searchInput,
@@ -207,6 +214,14 @@ function Content(props) {
         {body}
       </Modal>
     </Paper>
+    )
+  }
+
+  return (
+    <React.Fragment>
+      {!details ? renderNoDetails() : <PropertyDetails property={details} showAllProperties={() => setDetails(false)}/> } {/*if details is false, all pros is showed*/}
+      
+  </React.Fragment>
   );
 }
 
