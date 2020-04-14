@@ -74,6 +74,8 @@ function Navigator(props) {
     }
   ];
 
+
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
@@ -104,7 +106,7 @@ function Navigator(props) {
               </ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, active }) => (
-              <ListItem
+             <ListItem
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
