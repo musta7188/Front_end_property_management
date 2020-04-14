@@ -30,10 +30,11 @@ handleSubmit = (event) =>{
    
   axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
   .then(response => {
+    debugger
     if (response.data.logged_in){
       
       this.props.handleLogin(response.data)
-      this.redirect()
+      //this.redirect()
     }else{
       this.setState({
         errors: response.data.errors
@@ -47,7 +48,7 @@ handleSubmit = (event) =>{
 
 redirect = () =>{
   ///redirect the user to another track
-  this.props.history.push('/')
+  this.props.history.push("dashboard")
 }
 
 handleErrors = () =>{
@@ -75,7 +76,8 @@ componentWillMount(){
           {errors? this.handleErrors(): null}
         </div>
 
-        <SignInSide setValueAccess={this.props.setValueAccess } handleSubmit={this.handleSubmit} 
+        <SignInSide setValueAccess={this.props.setValueAccess } 
+        handleSubmit={this.handleSubmit} 
         handleChange={this.handleChange} email={email} 
         password={password} errors={errors}
         

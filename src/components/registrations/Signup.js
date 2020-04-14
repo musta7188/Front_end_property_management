@@ -37,7 +37,7 @@ axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true}
 .then(response => {
   if (response.data.status == 200){
     this.props.handleLogin(response.data)
-    this.redirect()
+    // this.redirect()
   }else {
     this.setState({
       errors: response.errors
@@ -48,9 +48,9 @@ axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true}
 
 };
 
-redirect = () => {
-  this.props.history.push('/')
-}
+// redirect = () => {
+//   this.props.history.push('/dashboard')
+// }
 
 handleErrors= () =>{
   return (

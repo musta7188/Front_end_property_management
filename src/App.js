@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-
+import { Switch, Route} from 'react-router-dom'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
 import Paperbase from './components/dashboard/Paperbase'
+import {withRouter} from "react-router";
 import './App.css';
 
-export default class App extends Component {
+
+
+ class App extends Component {
 constructor(props){
   super(props);
   this.state = {
@@ -40,14 +42,20 @@ loginStatus = () => {
 
 handleLogin = (data) => {
   const {landlord, issues, tenants, todos, properties} = data
-this.setState({
-  isLoggedIn: true,
-   landlord:landlord,
-    issues:issues,
-    tenants: tenants,
-    todos: todos,
-    properties: properties
-})
+  debugger
+  this.setState({
+    isLoggedIn: true,
+    landlord:landlord,
+      issues:issues,
+      tenants: tenants,
+      todos: todos,
+      properties: properties
+  }, () => {
+    debugger
+    this.props.history.push('/dashboard')
+  })
+  
+
 }
 
 handleLogout = () => {
@@ -58,7 +66,7 @@ handleLogout = () => {
     tenants:{},
     todos:{},
     properties:{}
-  })
+  }, () => this.props.history.push('/login'))
 }
 
 setValueAccess = (value) => {
@@ -73,7 +81,7 @@ setValueAccess = (value) => {
   .then(response => {
     this.handleLogout()
     ///delete the props 
-  this.history.push('/')
+  this.history.push('/login')
     //delete the props 
   })
   .catch(error => console.log(error))
@@ -81,9 +89,13 @@ setValueAccess = (value) => {
 
 renderDashboard = () => {
   return (
-    <Paperbase logout={() => this.handleClick()} user={this.state.landlord} properties={this.state.properties}/>
-    //paas landlord as state nad properties 
+
+   <Route 
+    exact path='/dashboard' 
+    component={()=>  <Paperbase  logout={() => this.handleClick()} user={this.state.landlord} properties={this.state.properties}/>    }
+    />
   )
+  
 }
 
 
@@ -91,27 +103,27 @@ render() {
   return (
     <div>
         { 
-        this.state.isLoggedIn? this.renderDashboard() : 
-     
-     <BrowserRouter>
-        <Switch>
-       <Route 
-        exact path='/' 
-          render={props => (
-          <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.isLoggedIn}/>
-        )}
-           />
-        <Route 
-        exact path='/signup' 
-        render={props => (
-        <Signup {...props} setValueAccess={this.setValueAccess } handleLogin={this.handleLogin} 
-        loggedInStatus={this.state.isLoggedIn}/>
-        )}
-      />
-       </Switch>
-      </BrowserRouter>
+          this.state.isLoggedIn
+          ? this.renderDashboard() 
+          : <Switch>
+            <Route 
+              exact path='/login' 
+              render={props => (
+                <Login {...props} handleLogin={this.handleLogin} setValueAccess={this.setValueAccess }  loggedInStatus={this.state.isLoggedIn}/>
+              )}
+            />
+            <Route 
+              exact path='/signup' 
+              render={props => (
+                <Signup {...props} setValueAccess={this.setValueAccess } handleLogin={this.handleLogin} 
+                loggedInStatus={this.state.isLoggedIn}/>
+              )}
+            />
+          </Switch>
         }
     </div>
   );
 }
 }
+
+export default withRouter(App)
