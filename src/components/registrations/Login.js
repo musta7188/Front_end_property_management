@@ -19,9 +19,10 @@ handleChange = (event) => {
 };
 
 handleSubmit = (event) =>{
-  event.preventDefault()
+  
+  event.preventDefault();
   const {email, password} = this.state
-
+  
   const landlord = {
     email: email,
     password: password
@@ -30,7 +31,7 @@ handleSubmit = (event) =>{
   axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
   .then(response => {
     if (response.data.logged_in){
-   
+      
       this.props.handleLogin(response.data)
       this.redirect()
     }else{

@@ -15,7 +15,10 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Modal from '@material-ui/core/Modal';
 import AddProperty from '../forms/AddProperty'
 
+import PropertyCard from './PropertyCard'
+
 const POST_URL = 'http://localhost:3001/properties';
+
 const styles = (theme) => ({
   paper: {
     maxWidth: 936,
@@ -36,6 +39,14 @@ const styles = (theme) => ({
   },
   contentWrapper: {
     margin: '40px 16px',
+  },
+  propertyGrid: {
+    flexGrow: 1,
+  },
+  propertyCard: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
 });
 
@@ -86,6 +97,12 @@ function Content(props) {
     setOpen(false);
   };
 
+  const handleDeleteProperty = (id) => {
+    setProperties(properties.filter(p => p.id !== id));
+
+  }
+
+  //function called when add a new property 
   const addNewProperty = (e, value) => {
     value = {
       ...value,
@@ -114,6 +131,7 @@ function Content(props) {
 
   //end of related stuff to modal
 
+  //render all properties
   const renderProperties = () => {
   
     if (properties.length === 0) {
@@ -124,12 +142,23 @@ function Content(props) {
       )
     }
     else{
-      return properties.map(property => (
-        <h2>{property.address}</h2>
-      ))
+      return (
+        <div className={classes.propertyGrid}>
+          <Grid container spacing={1}>
+            {properties.map(property => <PropertyCard property={property} classes={classes} handleDeleteProperty={handleDeleteProperty}/> )}
+          </Grid>
+        </div>
+      )
     }
   }
 
+  const renderCardProperty = (property) => {
+    return (
+      <Grid item xs={12} sm={6}>
+        <Paper className={classes.propertyCard}>{property.address}</Paper>
+      </Grid>
+    )
+  }
 
   const { classes } = props;
  
