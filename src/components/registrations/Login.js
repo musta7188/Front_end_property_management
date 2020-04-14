@@ -30,7 +30,7 @@ handleSubmit = (event) =>{
    
   axios.post('http://localhost:3001/login', {landlord}, {withCredentials: true})
   .then(response => {
-    debugger
+   
     if (response.data.logged_in){
       
       this.props.handleLogin(response.data)

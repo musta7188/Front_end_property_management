@@ -42,7 +42,7 @@ loginStatus = () => {
 
 handleLogin = (data) => {
   const {landlord, issues, tenants, todos, properties} = data
-  debugger
+  
   this.setState({
     isLoggedIn: true,
     landlord:landlord,
@@ -51,7 +51,7 @@ handleLogin = (data) => {
       todos: todos,
       properties: properties
   }, () => {
-    debugger
+    
     this.props.history.push('/dashboard')
   })
   
@@ -71,7 +71,7 @@ handleLogout = () => {
 
 setValueAccess = (value) => {
   value == 'landlord' ? this.setState({landlordLogin:true}) : this.setState({landlordLogin:false})
-  console.log(value)
+  
 }
 
 

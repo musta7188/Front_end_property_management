@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function PropertyCard({property, newClasses, handleDeleteProperty, handlePropertyClick}) {
-    console.log(property);
+  
     const classes = useStyles();
     return (
         
