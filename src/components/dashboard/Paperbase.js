@@ -195,7 +195,8 @@ function Paperbase(props) {
           <main className={classes.main}>
 
       
-            <Content user={props.user} properties={props.properties}/>
+            
+            <Route path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties}/> }/>
             <Route path='/issues' render={ routeProps =>  <IssuesPage {...routeProps} issues={issues} />}/>
             <Route path ='/tenants' render ={routeProps => <TenantsPage {...routeProps} tenants={tenants} /> }/>
 
