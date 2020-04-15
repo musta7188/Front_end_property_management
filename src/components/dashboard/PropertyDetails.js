@@ -64,24 +64,19 @@ export default function PropertyDetails({property, showAllProperties}) {
                 <Typography variant="h2" component="h2" gutterBottom>
                     {details.address}
                 </Typography>
-                {generateTable(newTenants)}
+                {tenants.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTenants)}
                 <br/>
-                {generateTable(newIssues)}
+                {issues.length === 0 ? <h1>No issues yet</h1> : generateTable(newIssues)}
                 <br/>
-                {generateTable(newTodos)}
+                {todos.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTodos)}
                 <br/>
             </React.Fragment>
         )
     }
-    // [
-          // {full_name: dasdasdadsa}
-          // {Date of }
-          // {}
-    // ]
+   
     //generate table for each state (tenants, issues, and todos)
     const generateTable = (newTenants) =>{
         const keys = Object.keys(newTenants[0]);
-        console.log(newTenants);
         return (
             <TableContainer component={Paper}>
                 <Table className={styles.table} aria-label="simple table">
