@@ -52,7 +52,7 @@ handleLogin = (data) => {
       properties: properties
   }, () => {
     
-    this.props.history.push('/dashboard')
+    // this.props.history.push('/dashboard')
   })
   
 
@@ -88,12 +88,18 @@ setValueAccess = (value) => {
 }
 
 renderDashboard = () => {
+  const {issues, tenants} = this.state
   return (
 
-   <Route 
-    exact path='/dashboard' 
-    component={()=>  <Paperbase  logout={() => this.handleClick()} user={this.state.landlord} properties={this.state.properties}/>    }
-    />
+    <Route path="/" render={routeProps => <Paperbase {...routeProps}  logout={() => this.handleClick()} 
+    user={this.state.landlord} 
+    properties={this.state.properties} 
+    issues={issues} 
+    tenants={tenants}
+    
+    />    } />
+
+  
   )
   
 }

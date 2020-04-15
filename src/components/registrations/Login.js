@@ -63,9 +63,9 @@ handleErrors = () =>{
   )
 }
 
-componentWillMount(){
-  return this.props.loggedInStatus ? this.redirect() : null
-}
+// componentWillMount(){
+//   return this.props.loggedInStatus ? this.redirect() : null
+// }
 
 
   render() {

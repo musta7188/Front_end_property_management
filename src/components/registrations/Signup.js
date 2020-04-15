@@ -64,9 +64,9 @@ handleErrors= () =>{
   )
 }
 
-componentWillMount() {
-  return this.props.loggedInStatus ? this.redirect() : null
-}
+// componentWillMount() {
+//   return this.props.loggedInStatus ? this.redirect() : null
+// }
 
   render() {
     const {first_name, last_name, email, password, password_confirmation, errors } = this.state

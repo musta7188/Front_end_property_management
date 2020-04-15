@@ -8,6 +8,10 @@ import Link from '@material-ui/core/Link';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import IssuesPage from '../dashboard/issues/IssuesPage'
+import IssuesDetails from '../dashboard/issues/IssueDetails'
+import { Route } from 'react-router-dom';
+import TenantsPage from './tenants/TenantsPage'
 
 function Copyright() {
   return (
@@ -162,7 +166,7 @@ const styles = {
 };
 
 function Paperbase(props) {
-  const { classes } = props;
+  const { classes, issues, tenants } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -191,7 +195,11 @@ function Paperbase(props) {
           <main className={classes.main}>
 
       
-            <Content user={props.user} properties={props.properties}/>
+            {/* <Content user={props.user} properties={props.properties}/> */}
+            <Route path='/issues' render={ routeProps =>  <IssuesPage {...routeProps} issues={issues} />}/>
+            <Route path ='/tenants' render ={routeProps => <TenantsPage {...routeProps} tenants={tenants} /> }/>
+
+            
               
 
 
