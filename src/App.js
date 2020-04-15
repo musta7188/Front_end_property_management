@@ -52,7 +52,7 @@ handleLogin = (data) => {
       properties: properties
   }, () => {
     
-    // this.props.history.push('/dashboard')
+    this.props.history.push()
   })
   
 

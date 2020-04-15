@@ -34,7 +34,7 @@ handleSubmit = (event) =>{
     if (response.data.logged_in){
       
       this.props.handleLogin(response.data)
-      //this.redirect()
+      this.redirect()
     }else{
       this.setState({
         errors: response.data.errors
@@ -48,7 +48,7 @@ handleSubmit = (event) =>{
 
 redirect = () =>{
   ///redirect the user to another track
-  this.props.history.push("dashboard")
+  this.props.history.push("/")
 }
 
 handleErrors = () =>{
