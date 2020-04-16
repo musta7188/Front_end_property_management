@@ -13,6 +13,7 @@ import IssuesDetails from '../dashboard/issues/IssueDetails'
 import { Route } from 'react-router-dom';
 import TenantsPage from './tenants/TenantsPage'
 import PropertyDetails from './PropertyDetails'
+import AddProperty from '../forms/AddProperty';
 
 function Copyright() {
   return (
@@ -219,7 +220,7 @@ function Paperbase(props) {
 
       
             
-            <Route exact path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties}/> }/>
+            <Route exact path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties} handlePropertyState={props.handlePropertyState}/> }/>
             <Route path='/issues' render={ routeProps =>  <IssuesPage {...routeProps} issues={issues} />}/>
             <Route path ='/tenants' render ={routeProps => <TenantsPage {...routeProps} tenants={tenants} /> }/>
 

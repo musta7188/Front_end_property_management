@@ -73,6 +73,19 @@ setValueAccess = (value) => {
   
 }
 
+//update the properties state after a property been deleted
+handlePropertyState = (property, action) => {
+  if (action === 'add'){
+    this.setState({
+      properties: [...this.state.properties, property]
+    })
+  }else if (action === 'delete'){
+    this.setState({
+      properties: this.state.properties.filter(p => p.id !== property.id)
+    })
+  }
+}
+
 
  handleClick = () =>{
 
@@ -95,7 +108,7 @@ renderDashboard = () => {
     properties={this.state.properties} 
     issues={issues} 
     tenants={tenants}
-    
+    handlePropertyState={this.handlePropertyState}
     />    } />
 
   

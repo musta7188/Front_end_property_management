@@ -112,7 +112,10 @@ function Content(props) {
       }
     })
     .then(res => res.json())
-    .then((res) => setProperties(properties.filter(p => p.id !== id)));
+    .then((res) => {
+      setProperties(properties.filter(p => p.id !== id));
+      props.handlePropertyState(res.data, 'delete');
+    } );
   }
 
   //function called when add a new property 
@@ -132,6 +135,9 @@ function Content(props) {
         .then(data => {
           handleClose();
           setProperties([...properties, data.property]);
+
+          //send the information back to App.js to update the state
+          props.handlePropertyState(data.property, 'add');
           
         });
   }
