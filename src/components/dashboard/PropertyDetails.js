@@ -64,12 +64,21 @@ export default function PropertyDetails({property, showAllProperties, history}) 
                 <Typography variant="h2" component="h2" gutterBottom>
                     {details.address}
                 </Typography>
+                <Typography variant="h5" gutterBottom>
+                    Tenants:
+                </Typography>
                 {tenants.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTenants)}
-                <br/>
+                <br/><hr/><br/>
+                <Typography variant="h5" gutterBottom>
+                    Issues:
+                </Typography>
                 {issues.length === 0 ? <h1>No issues yet</h1> : generateTable(newIssues)}
-                <br/>
+                <br/><hr/><br/>
+                <Typography variant="h5" gutterBottom>
+                    Tenants:
+                </Typography>
                 {todos.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTodos)}
-                <br/>
+                <br/><hr/><br/>
             </React.Fragment>
         )
     }
