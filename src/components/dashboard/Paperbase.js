@@ -15,6 +15,7 @@ import TenantsPage from './tenants/TenantsPage'
 import PropertyDetails from './PropertyDetails'
 import AddProperty from '../forms/AddProperty';
 
+import TodoPage from './todos/TodosPage'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -168,7 +169,7 @@ const styles = {
 };
 
 function Paperbase(props) {
-  const { classes, issues, tenants } = props;
+  const { classes, issues, tenants, todos } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleSelect = (selection) => {
@@ -223,8 +224,10 @@ function Paperbase(props) {
             <Route exact path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties} handlePropertyState={props.handlePropertyState}/> }/>
             <Route path='/issues' render={ routeProps =>  <IssuesPage {...routeProps} issues={issues} />}/>
             <Route path ='/tenants' render ={routeProps => <TenantsPage {...routeProps} tenants={tenants} /> }/>
-
-            <Route exact path={`/properties/:propertyId`} render={(propsDetails) => <PropertyDetails {...propsDetails} property={propsDetails.match.params.propertyId} showAllProperties={() => false} /> }/>
+            <Route path ='/todos' render ={routeProps => <TodoPage {...routeProps} todos={todos} /> }/>
+            <Route exact path={`/properties/:propertyId`} render={(propsDetails) =>
+               <PropertyDetails {...propsDetails} property={propsDetails.match.params.propertyId}
+                showAllProperties={() => false} /> }/>
             
 
             

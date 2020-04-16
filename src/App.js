@@ -100,7 +100,7 @@ handlePropertyState = (property, action) => {
 }
 
 renderDashboard = () => {
-  const {issues, tenants} = this.state
+  const {issues, tenants, todos} = this.state
   return (
 
     <Route path="/" render={routeProps => <Paperbase {...routeProps}  logout={() => this.handleClick()} 
@@ -109,6 +109,7 @@ renderDashboard = () => {
     issues={issues} 
     tenants={tenants}
     handlePropertyState={this.handlePropertyState}
+    todos={todos}
     />    } />
 
   
