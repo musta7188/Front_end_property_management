@@ -9,7 +9,8 @@ import TenantDetails from './TenantDetails'
     <div>
       <Route exact path={'/tenants'} render={() =>  <TenantList tenants={tenants}/> }/>
     
-      <Route exact path={`/tenants/:tenantID`} render={propsIssuePage => <TenantDetails {...propsIssuePage} tenants={tenants}  /> }   />
+      <Route exact path={`/tenants/:tenantID`} render={propsIssuePage => 
+      <TenantDetails {...propsIssuePage} tenants={tenants}  /> }   />
     </div>
   )
 

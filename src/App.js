@@ -87,7 +87,7 @@ setValueAccess = (value) => {
 }
 
 renderDashboard = () => {
-  const {issues, tenants} = this.state
+  const {issues, tenants, todos} = this.state
   return (
 
     <Route path="/" render={routeProps => <Paperbase {...routeProps}  logout={() => this.handleClick()} 
@@ -95,6 +95,7 @@ renderDashboard = () => {
     properties={this.state.properties} 
     issues={issues} 
     tenants={tenants}
+    todos={todos}
     
     />    } />
 
