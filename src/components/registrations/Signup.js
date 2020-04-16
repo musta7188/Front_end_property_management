@@ -49,7 +49,7 @@ axios.post('http://localhost:3001/landlords',{landlord}, {withCredentials: true}
 };
 
 redirect = () => {
-  this.props.history.push('/')
+  this.props.history.push('/properties')
 }
 
 handleErrors= () =>{

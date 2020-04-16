@@ -48,7 +48,7 @@ handleSubmit = (event) =>{
 
 redirect = () =>{
   ///redirect the user to another track
-  this.props.history.push("/")
+  this.props.history.push("/properties")
 }
 
 handleErrors = () =>{

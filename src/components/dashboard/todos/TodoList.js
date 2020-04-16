@@ -4,10 +4,11 @@ import {Link} from 'react-router-dom';
 
 const TodoList = ({todos}) => {
 
-const renderTodos = Object.keys(todos).map(todoID => 
+
+const renderTodos = todos.map(todo => 
   
-  <Link key={todoID} to={`/todos/${todoID}`}>
-    <h1> {todos[todoID].message} </h1>
+  <Link key={todo.id} to={`/todos/${todo.id}`}>
+    <h1> {todo.message} </h1>
   
   </Link>
   

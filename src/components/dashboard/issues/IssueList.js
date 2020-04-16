@@ -7,9 +7,9 @@ const IssueList = ({issues}) => {
 
 
 
-  const renderIssues = Object.keys(issues).map(issueID =>
+  const renderIssues = issues.map(issue =>
 
-    <Link key={issueID} to={`/issues/${issueID}`}  > <h1>{issues[issueID].message}</h1> </Link>
+    <Link key={issue.id} to={`/issues/${issue.id}`}  > <h1>{issue.message}</h1> </Link>
     )
 
 
