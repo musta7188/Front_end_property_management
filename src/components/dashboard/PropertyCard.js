@@ -13,6 +13,7 @@ import { red } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,7 +66,8 @@ export default function PropertyCard({property, newClasses, handleDeleteProperty
                     title={property.address}
                     subheader="September 14, 2016"
                 />
-                <CardActionArea onClick={() => handlePropertyClick(property.id)}>
+                {/* <CardActionArea onClick={() => handlePropertyClick(property.id)}> */}
+                <Link key={property.id} to={`/properties/${property.id}`}> 
                 <CardMedia
                     className={classes.media}
                     image="https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale"
@@ -76,7 +78,8 @@ export default function PropertyCard({property, newClasses, handleDeleteProperty
                     house description
                     </Typography>
                 </CardContent>
-                </CardActionArea>
+                </Link>
+                {/* </CardActionArea> */}
                 </Card>
                 
         </Grid>

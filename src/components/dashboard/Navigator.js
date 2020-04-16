@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,12 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
 import HomeWorkRoundedIcon from '@material-ui/icons/HomeWorkRounded';
 
 const styles = (theme) => ({
@@ -62,6 +58,24 @@ function Navigator(props) {
   const { classes, ...other } = props;
   const [active, setActive] = useState('My Properties');
 
+  useEffect(() => {
+    const actualPath = props.currentPath.slice(1);
+    switch(actualPath){
+      case 'tenants':
+        setActive('Tenants');
+        break;
+      case 'properties':
+        setActive('My Properties');
+        break;
+      case 'issues':
+        setActive('Issues');
+        break;
+      case 'todos':
+        setActive('Todos');
+        break    
+    }   
+  }, [active])
+
   const categories = [
     {
       id: 'Main Menu',
@@ -75,6 +89,12 @@ function Navigator(props) {
   ];
 
 
+  // handleSelect
+
+  const handleClick = (id) => {
+    props.handleSelect(id);
+    return active !== id ? setActive(id) : null;
+  }
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -110,7 +130,7 @@ function Navigator(props) {
                 key={childId}
                 button
                 className={clsx(classes.item, active && classes.itemActiveItem)}
-                onClick={() => !active ? setActive(childId) : null}
+                onClick={() => handleClick(childId)}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText

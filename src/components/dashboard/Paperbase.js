@@ -12,6 +12,7 @@ import IssuesPage from '../dashboard/issues/IssuesPage'
 import IssuesDetails from '../dashboard/issues/IssueDetails'
 import { Route } from 'react-router-dom';
 import TenantsPage from './tenants/TenantsPage'
+import PropertyDetails from './PropertyDetails'
 
 function Copyright() {
   return (
@@ -169,6 +170,23 @@ function Paperbase(props) {
   const { classes, issues, tenants } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const handleSelect = (selection) => {
+    switch(selection){
+      case 'Tenants':
+        props.history.push('/tenants');
+        break;
+      case 'My Properties':
+        props.history.push('/properties');
+        break;
+      case 'Issues':
+        props.history.push('/issues');
+        break;
+      case 'Todos':
+        props.history.push('/todos');
+        break    
+    }
+  }
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -187,7 +205,12 @@ function Paperbase(props) {
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} user={props.user.first_name}/>
+            <Navigator 
+              PaperProps={{ style: { width: drawerWidth } }} 
+              user={props.user.first_name} 
+              handleSelect={handleSelect}
+              currentPath={props.history.location.pathname}
+              />
           </Hidden>
         </nav>
         <div className={classes.app}>
@@ -196,9 +219,12 @@ function Paperbase(props) {
 
       
             
-            <Route path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties}/> }/>
+            <Route exact path='/properties' render={ routeProps => <Content {...routeProps} user={props.user} properties={props.properties}/> }/>
             <Route path='/issues' render={ routeProps =>  <IssuesPage {...routeProps} issues={issues} />}/>
             <Route path ='/tenants' render ={routeProps => <TenantsPage {...routeProps} tenants={tenants} /> }/>
+
+            <Route exact path={`/properties/:propertyId`} render={(propsDetails) => <PropertyDetails {...propsDetails} property={propsDetails.match.params.propertyId} showAllProperties={() => false} /> }/>
+            
 
             
               

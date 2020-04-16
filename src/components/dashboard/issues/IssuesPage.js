@@ -11,8 +11,7 @@ const IssuesPage = ({match, issues}) => {
     return (
       <div>
         <Route exact path={'/issues'} render={() =>  <IssueList issues={issues}/> }/>
-      
-        <Route exact path={`/issues/:issueID`} render={propsIssuePage => <IssueDetails {...propsIssuePage} issues={issues}  /> }   />
+        <Route exact path={`/issues/:issueID`} render={propsIssuePage => <IssueDetails {...propsIssuePage} issues={issues}  />}   />
       </div>
     )
 

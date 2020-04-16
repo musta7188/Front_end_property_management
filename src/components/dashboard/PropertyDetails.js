@@ -18,9 +18,9 @@ const useStyles = makeStyles({
     },
   });
 
-export default function PropertyDetails({property, showAllProperties}) {
+export default function PropertyDetails({property, showAllProperties, history}) {
     const styles = useStyles();
-
+    
     //load the property details
     const [details, setDetails] = useState(0);
     const [tenants, setTenants] = useState(0);
@@ -113,7 +113,9 @@ export default function PropertyDetails({property, showAllProperties}) {
     return (
         <Container maxWidth="xl">
             <div>{issues !== 0 ? renderDetails() : null}</div>
-            <Button onClick={showAllProperties} variant="contained" color="primary">Go back</Button>
+            <Button onClick={() => history.push('/properties')} variant="contained" color="primary">Go back</Button>
         </Container>
     )
 }
+
+// 

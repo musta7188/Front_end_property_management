@@ -42,7 +42,6 @@ loginStatus = () => {
 
 handleLogin = (data) => {
   const {landlord, issues, tenants, todos, properties} = data
-  
   this.setState({
     isLoggedIn: true,
     landlord:landlord,
@@ -52,7 +51,7 @@ handleLogin = (data) => {
       properties: properties
   }, () => {
     
-    this.props.history.push()
+    this.props.history.push();
   })
   
 

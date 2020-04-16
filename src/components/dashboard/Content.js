@@ -15,6 +15,7 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Modal from '@material-ui/core/Modal';
 import AddProperty from '../forms/AddProperty'
 import PropertyDetails from './PropertyDetails'
+import { Route, Link } from 'react-router-dom';
 
 import PropertyCard from './PropertyCard'
 
@@ -219,7 +220,11 @@ function Content(props) {
 
   return (
     <React.Fragment>
-      {!details ? renderNoDetails() : <PropertyDetails property={details} showAllProperties={() => setDetails(false)}/> } {/*if details is false, all pros is showed*/}
+
+    
+    {!details ? renderNoDetails() : <PropertyDetails property={details} showAllProperties={() => setDetails(false)}/> } 
+
+      
       
   </React.Fragment>
   );
