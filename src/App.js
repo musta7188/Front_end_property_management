@@ -103,7 +103,7 @@ renderDashboard = () => {
   const {issues, tenants, todos} = this.state
   return (
 
-    <Route path="/" render={routeProps => <Paperbase {...routeProps}  logout={() => this.handleClick()} 
+    <Route path="/" render={routeProps => <Paperbase {...routeProps} logout={() => this.handleClick()} 
     user={this.state.landlord} 
     properties={this.state.properties} 
     issues={issues} 
