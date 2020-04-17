@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import AddTenant from '../forms/AddTenant';
+import Divider from '@material-ui/core/Divider';
+
+const POST_TENANTS_URL = 'http://localhost:3001/tenants';
 
 const useStyles = makeStyles({
     table: {
@@ -18,8 +22,39 @@ const useStyles = makeStyles({
     },
   });
 
+
+//related to the modal
+function getModalStyle() {
+  const top = 30;
+  const left = 40;
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+//related to the modal
+const modalStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 export default function PropertyDetails({property, showAllProperties, history}) {
     const styles = useStyles();
+
+    //related to the modal
+    const layout = modalStyles();
+    // getModalStyle is not a pure function, we roll the style only on the first render
+    const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
     
     //load the property details
     const [details, setDetails] = useState(0);
@@ -38,6 +73,11 @@ export default function PropertyDetails({property, showAllProperties, history}) 
             setIssues(data.issues);
           });
     }, [])
+
+    //close the modal
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     // render the details after is loaded
     const renderDetails = () =>{
@@ -65,20 +105,30 @@ export default function PropertyDetails({property, showAllProperties, history}) 
                     {details.address}
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                    Tenants:
+                    Tenants at this property:
                 </Typography>
                 {tenants.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTenants)}
-                <br/><hr/><br/>
+                <br/>
+
+                <Button 
+                  onClick={() => setOpen(true)} 
+                  variant="contained" 
+                  color="primary">
+                  Add New Tenant
+                </Button>
+
+
+                <br/><br/><Divider /><br/>
                 <Typography variant="h5" gutterBottom>
-                    Issues:
+                    Issues on this property:
                 </Typography>
-                {issues.length === 0 ? <h1>No issues yet</h1> : generateTable(newIssues)}
-                <br/><hr/><br/>
+                {issues.length === 0 ? <h1>No issues for this property yet</h1> : generateTable(newIssues)}
+                <br/><br/><Divider /><br/>
                 <Typography variant="h5" gutterBottom>
-                    Tenants:
+                    Todos for this property:
                 </Typography>
-                {todos.length === 0 ? <h1>No tenants yet</h1> : generateTable(newTodos)}
-                <br/><hr/><br/>
+                {todos.length === 0 ? <h1>No todos for this property yet</h1> : generateTable(newTodos)}
+                <br/><br/><Divider /><br/>
             </React.Fragment>
         )
     }
@@ -116,6 +166,31 @@ export default function PropertyDetails({property, showAllProperties, history}) 
       )
     }
 
+    const addNewTenant = (e, value) => {
+      value = {
+        ...value,
+        property_id : property
+      };
+          fetch(POST_TENANTS_URL, {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(value)
+          })
+          .then(res => res.json())
+          .then(data => {
+            handleClose();
+            console.log(data);
+            setTenants([...tenants, data.tenant]);
+            renderDetails();
+            // setProperties([...properties, data.property]);
+  
+            
+            
+          });
+    }
+
 
 
     //main return
@@ -123,6 +198,16 @@ export default function PropertyDetails({property, showAllProperties, history}) 
         <Container maxWidth="xl">
             <div>{issues !== 0 ? renderDetails() : null}</div>
             <Button onClick={() => history.push('/properties')} variant="contained" color="primary">Go back</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                <div style={modalStyle} className={layout.paper}>
+                  <AddTenant addNewTenant={addNewTenant}/>
+                </div>
+            </Modal>
         </Container>
     )
 }
