@@ -20,16 +20,6 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-
-
-
-
-
-
-
-
 const TenantList = ({tenants}) => {
   const styles = useStyles();
 

@@ -26,12 +26,15 @@ const useStyles = makeStyles((theme) => ({
 const TodoList = () => {
 
   const classes = useStyles();
-  const [todos, setTodos] = React.useState([]);
+  const [todos, setTodos] = React.useState(null);
 
   const getTodos = () => {
     fetch("http://localhost:3001/todos")
     .then(resp => resp.json())
-    .then(data => {setTodos(data.todos)})
+    .then(data => {
+      debugger
+      setTodos(data.todos)
+    })
   }
 
 
@@ -48,11 +51,11 @@ const TodoList = () => {
     <List className={classes.root}>
 
       
-    {todos.map((todo) => {
-    
+    {todos && todos.map((todo) => {
+      debugger
       
       return (
-       
+      
         
         <ListItem alignItems="flex-start">
      
@@ -71,7 +74,7 @@ const TodoList = () => {
               >
                 Property: 
               </Typography>
-              {todo.property.address}
+              { todo["property"]["address"]}
             </React.Fragment>
           }
         />

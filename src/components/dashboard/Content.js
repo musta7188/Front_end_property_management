@@ -15,71 +15,12 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Modal from '@material-ui/core/Modal';
 import AddProperty from '../forms/AddProperty'
 import PropertyDetails from './PropertyDetails'
-import { Route, Link } from 'react-router-dom';
-
+import {deleteProperty, createNewProperty } from '../../API/APIs'
+import {styles, getModalStyle, useStyles} from '../../styles/ContentStyle'
 import PropertyCard from './PropertyCard'
 
-const POST_URL = 'http://localhost:3001/properties';
 
-const styles = (theme) => ({
-  paper: {
-    maxWidth: 936,
-    margin: 'auto',
-    overflow: 'hidden',
-  },
-  searchBar: {
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-  },
-  searchInput: {
-    fontSize: theme.typography.fontSize,
-  },
-  block: {
-    display: 'block',
-  },
-  addUser: {
-    marginRight: theme.spacing(1),
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-  },
-  propertyGrid: {
-    flexGrow: 1,
-  },
-  propertyCard: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-});
 
-//related to the modal
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-//related to the modal
-function getModalStyle() {
-  const top = 35 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-//related to the modal
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    width: 600,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 
 function Content(props) {
   //check to see if we should show the details of a property
@@ -105,13 +46,7 @@ function Content(props) {
   //function called when the user click in the trash bin
   const handleDeleteProperty = (id) => {
     
-    fetch(`${POST_URL}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-    .then(res => res.json())
+    deleteProperty(id)
     .then((res) => {
       setProperties(properties.filter(p => p.id !== id));
       props.handlePropertyState(res.data, 'delete');
@@ -124,15 +59,7 @@ function Content(props) {
       ...value,
       landlord_id : props.user.id
     }
-        fetch(POST_URL, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify(value)
-        })
-        .then(res => res.json())
-        .then(data => {
+    createNewProperty(value).then(data => {
           handleClose();
           setProperties([...properties, data.property]);
 
@@ -147,8 +74,6 @@ function Content(props) {
       <AddProperty addNewProperty={addNewProperty}/>
     </div>
   );
-
-  //end of related stuff to modal
 
   //render all properties
   const renderProperties = () => {
